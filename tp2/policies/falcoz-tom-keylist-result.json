@@ -1,0 +1,14 @@
+{
+    "Policy": {
+        "PolicyName": "falcoz-tom-keylist",
+        "PolicyId": "ANPA2CGK3UZ7AI3QVXYTB",
+        "Arn": "arn:aws:iam::691915171454:policy/falcoz-tom-keylist",
+        "Path": "/",
+        "DefaultVersionId": "v1",
+        "AttachmentCount": 0,
+        "PermissionsBoundaryUsageCount": 0,
+        "IsAttachable": true,
+        "CreateDate": "2024-05-23T13:12:36+00:00",
+        "UpdateDate": "2024-05-23T13:12:36+00:00"
+    }
+}

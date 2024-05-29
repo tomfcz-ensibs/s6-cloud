@@ -1,0 +1,14 @@
+{
+    "Policy": {
+        "PolicyName": "falcoz-tom-asmrole",
+        "PolicyId": "ANPA2CGK3UZ7EUR2PSREC",
+        "Arn": "arn:aws:iam::691915171454:policy/falcoz-tom-asmrole",
+        "Path": "/",
+        "DefaultVersionId": "v1",
+        "AttachmentCount": 0,
+        "PermissionsBoundaryUsageCount": 0,
+        "IsAttachable": true,
+        "CreateDate": "2024-05-23T12:29:56+00:00",
+        "UpdateDate": "2024-05-23T12:29:56+00:00"
+    }
+}
