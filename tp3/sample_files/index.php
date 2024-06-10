@@ -1,10 +1,6 @@
 <?php
 $mariadb_ip = "REPLACE_MARIADB_IP";
 
-if ($mariadb_ip === 'REPLACE_MARIADB_IP') {
-    die('Error: Variable MARIADB_IP not set.');
-}
-
 // Database connection parameters
 $database = 'mydb'; // replace with your database name
 $username = 'user'; // replace with your database username
