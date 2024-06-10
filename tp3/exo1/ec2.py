@@ -180,6 +180,6 @@ ssh_command_via_tunnel(
     hostname_dbserver, 22, 'ec2-user', key_path,
     [
         f'wget {dbserver_script_path}',
-        f'bash create_dbserver.sh {hostname_dbserver}'
+        f'sudo bash create_dbserver.sh'
     ]
 )
