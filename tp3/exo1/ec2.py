@@ -122,7 +122,6 @@ def ssh_command_via_tunnel(
         return [f"Exception: {str(e)}"]
 
 ##########
-"""
 ec2 = boto3.client('ec2', region_name='us-east-1')
  
 serveurweb_instance = create_ec2_instance(ec2, SECURITY_PUB_ID, SUBNET_PUB_ID, True)
@@ -149,7 +148,6 @@ print(info)
 
 print('Waiting for ssh service to launch (10s)')
 time.sleep(10)
-"""
 
 with open('instance_infos.json', 'r', encoding='utf-8') as file:
     instance_infos = json.loads(file.read())
