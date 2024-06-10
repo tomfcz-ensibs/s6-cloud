@@ -127,5 +127,5 @@ info = {
     'vpc_id' : vpc_id
 }
 
-with open('infos.json', 'w', encoding='utf-8') as file:
+with open('vpc_infos.json', 'w', encoding='utf-8') as file:
     file.write(json.dumps(info))

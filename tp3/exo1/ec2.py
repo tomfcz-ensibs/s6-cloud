@@ -1,8 +1,6 @@
 import boto3, time, paramiko, json
 
-
-
-with open("infos.json",'r', encoding='utf-8') as file:
+with open("vpc_infos.json",'r', encoding='utf-8') as file:
     infos = json.loads(file.read())
 
 VPC_ID = infos['vpc_id']
@@ -125,8 +123,6 @@ def ssh_command_via_tunnel(
 
 ##########
 """
-# TODO Ne fonctionne pas sur le premier lancement, 
-# Je pense que le service ssh est pas encore lancé quand on essaie de se connecter
 ec2 = boto3.client('ec2', region_name='us-east-1')
  
 serveurweb_instance = create_ec2_instance(ec2, SECURITY_PUB_ID, SUBNET_PUB_ID, True)
@@ -143,38 +139,47 @@ hostname_webserver = response['Reservations'][0]['Instances'][0]['PublicIpAddres
 
 response = ec2.describe_instances(InstanceIds=[serveurbdd_instance_id])
 hostname_dbserver = response['Reservations'][0]['Instances'][0]['PrivateIpAddress']
-print(f"Pub serveurweb : {hostname_webserver}")
-print(f"priv serveurdb : {hostname_dbserver}")
+
+info = {
+    'hostname_webserver': hostname_webserver,
+    'hostname_dbserver' : hostname_dbserver
+}
+with open('instance_infos.json', 'w', encoding='utf-8') as file: file.write(json.dumps(info))
+print(info)
+
+print('Waiting for ssh service to launch (10s)')
+time.sleep(10)
 """
-hostname_webserver="18.214.15.10"
-hostname_dbserver="10.0.1.186"
+
+with open('instance_infos.json', 'r', encoding='utf-8') as file:
+    instance_infos = json.loads(file.read())
+
+hostname_webserver = instance_infos['hostname_webserver']
+hostname_dbserver = instance_infos['hostname_dbserver']
 
 key_path = './labsuser.pem'
-webserver_script_path = './create_webserver.sh'
-dbserver_script_path = './create_dbserver.sh'
-
 with open(key_path, 'r', encoding='utf-8') as file: key_content = file.read()
-with open(webserver_script_path, 'r', encoding='utf-8') as file: webserver_script = file.read()
-with open(dbserver_script_path, 'r', encoding='utf-8') as file: dbserver_script = file.read()
+
 
 # Starting configuration of web server
+webserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/exo1/create_webser.sh'
 webserver_keycopy = ssh_command(hostname_webserver, key_path, [
     f'echo "{key_content}" > ~/labsuser.pem',
     'chmod 600 ~/labsuser.pem'
 ])
-
 webserver_install = ssh_command(hostname_webserver, key_path, [
-    f'echo "{webserver_script}" > ~/install_webserver.sh',
-    'chmod +x ~/install_webserver.sh'
+    f'wget {webserver_script_path}',
+    f'bash create_webser.sh {hostname_dbserver}'
 ])
 
-res = ssh_command_via_tunnel(
-    hostname_webserver, 22, "ec2-user", key_path,
-    hostname_dbserver, 22, "ec2-user", key_path,
+
+# Starting configuration of database server
+dbserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/exo1/create_dbserver.sh'
+ssh_command_via_tunnel(
+    hostname_webserver, 22, 'ec2-user', key_path,
+    hostname_dbserver, 22, 'ec2-user', key_path,
     [
-        f'echo "{dbserver_script}" > ~/install_dbserver.sh',
-        'chmod +x ~/install_dbserver.sh'
+        f'wget {dbserver_script_path}',
+        f'bash create_dbserver.sh {hostname_dbserver}'
     ]
 )
-
-print(res)
