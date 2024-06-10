@@ -2,12 +2,12 @@ sudo dnf update -y
 sudo dnf install httpd -y
 sudo systemctl enable httpd
 sudo systemctl start httpd
-sudo dnf install -y php php-mysqli
+sudo dnf install php php-mysqli -y
 
-wget https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/index.php
+wget --no-cache https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/index.php
 sudo sed -i "s/REPLACE_MARIADB_IP/$1/g" index.php
 sudo mv index.php /var/www/html/
 
-wget https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/site.conf
+wget --no-cache https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/site.conf
 sudo mv site.conf /etc/httpd/conf.d/
 sudo systemctl restart httpd
