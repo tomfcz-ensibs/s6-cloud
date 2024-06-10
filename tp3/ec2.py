@@ -124,31 +124,35 @@ def ssh_command_via_tunnel(
         return [f"Exception: {str(e)}"]
 
 ##########
-
-# ec2 = boto3.client('ec2', region_name='us-east-1')
+"""
+# TODO Ne fonctionne pas sur le premier lancement, 
+# Je pense que le service ssh est pas encore lancé quand on essaie de se connecter
+ec2 = boto3.client('ec2', region_name='us-east-1')
  
-# serveurweb_instance = create_ec2_instance(ec2, SECURITY_PUB_ID, SUBNET_PUB_ID, True)
-# serveurweb_instance_id = serveurweb_instance['InstanceId']
+serveurweb_instance = create_ec2_instance(ec2, SECURITY_PUB_ID, SUBNET_PUB_ID, True)
+serveurweb_instance_id = serveurweb_instance['InstanceId']
 
-# serveurbdd_instance = create_ec2_instance(ec2, SECURITY_PRI_ID, SUBNET_PRI_ID, False)
-# serveurbdd_instance_id = serveurbdd_instance['InstanceId']
+serveurbdd_instance = create_ec2_instance(ec2, SECURITY_PRI_ID, SUBNET_PRI_ID, False)
+serveurbdd_instance_id = serveurbdd_instance['InstanceId']
 
-# wait_for_instance_state(ec2, serveurweb_instance_id)
-# wait_for_instance_state(ec2, serveurbdd_instance_id)
+wait_for_instance_state(ec2, serveurweb_instance_id)
+wait_for_instance_state(ec2, serveurbdd_instance_id)
 
-# response = ec2.describe_instances(InstanceIds=[serveurweb_instance_id])
-# hostname_webserver = response['Reservations'][0]['Instances'][0]['PublicIpAddress']
+response = ec2.describe_instances(InstanceIds=[serveurweb_instance_id])
+hostname_webserver = response['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
-# response = ec2.describe_instances(InstanceIds=[serveurbdd_instance_id])
-# hostname_dbserver = response['Reservations'][0]['Instances'][0]['PrivateIpAddress']
-# print(f"Pub serveurweb : {hostname_webserver}")
-# print(f"priv serveurdb : {hostname_dbserver}")
+response = ec2.describe_instances(InstanceIds=[serveurbdd_instance_id])
+hostname_dbserver = response['Reservations'][0]['Instances'][0]['PrivateIpAddress']
+print(f"Pub serveurweb : {hostname_webserver}")
+print(f"priv serveurdb : {hostname_dbserver}")
+"""
+hostname_webserver="54.87.73.170"
+hostname_dbserver="10.0.1.76"
 
-hostname_webserver = '3.92.27.156'
-hostname_dbserver = '10.0.1.74'
-
-key_path = '/home/sullyp/Documents/temp-travail-3a/aws/labsuser.pem'
+key_path = './labsuser.pem'
+install_script_path="./install-snort.sh"
 with open(key_path, 'r', encoding='utf-8') as file: key_content = file.read()
+with open(install_script_path, 'r', encoding='utf-8') as file: snort_install_script = file.read()
 
 # Starting configuration of web server
 webserver_keycopy = ssh_command(hostname_webserver, key_path, [
@@ -163,11 +167,9 @@ webserver_install = ssh_command(hostname_webserver, key_path, [
     'sudo systemctl start httpd'
 ])
 
-
-# command="touch test"
 commands = [
-    "touch test",
-    "cat /etc/hostname",
+    f'echo "{snort_install_script}" > ~/snort-install.sh',
+    'chmod +x snort-install.sh'
 ]
 res = ssh_command_via_tunnel(
     hostname_webserver, 22, "ec2-user", key_path,

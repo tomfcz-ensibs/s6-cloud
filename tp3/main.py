@@ -1,9 +1,5 @@
 import boto3, time, json
 
-aws_access_key_id='ASIAVDRHEW7QLDJ7QBMV'
-aws_secret_access_key='cJyprbC4RSLeEKFW/j6ZkloqyKHWW/o3OGG9VGnS'
-aws_session_token='IQoJb3JpZ2luX2VjEP///////////wEaCXVzLXdlc3QtMiJHMEUCIQCoJTOopDmWLu3JSXrFAYVcvCeNY4DeFNXmyldBxygsogIgRI/oI/bz0PKv6YeP0ylxTtyOfG1MDMgxUY/BNsfOHVcqwgIIiP//////////ARAAGgwzNTExOTU2NzQ1OTIiDEA5UZhEdQIObsjaOSqWAqtXYxUdcTfRdWNBKyQhMXXeWt779j4t16/pR4HTbhFYSHzhgThWN7L+9SmYK3GA1Q3GfdGJlM22IYb4Ta7Li6ItB+RqpZIh0BtQ/455+uycTAUDa68O2Ulpf06GpykehzLzf5n7ZDdePAi89f+Evxwggb9UA5w3sMvlO6Gd0pWqGsTyfr1Uef4og0CSy91J8LIOivQZNwfO7nO5Bz1pZNdCK4QtLkoHsMZrZJf+itpZWvNfZOw6wAI94kKzAUyUDD85Ad8X2F8Vv1lESyleFgwGkLsEFIwbGQlS6LPyKMeyNhPOfHgRyiCb5LIF8+aC+5dtIQVf57CeaQNyFNXy3b47noYolT3gBegpE9ln9Xx9/gZo/iZ5MNnC9bIGOp0BYnDQeZ6hLymDS38zhRpYAXYqNWnlGRbKkoujd8RXo9QoJsCE+p7G+VhRDQ4robtJy3rrWtAepCaRTmBnopPpPaJ4PFkGMnnzvkwq1cBP+Vy/8r4YDoPDa1+O9qj9+yTHN+Ejf/6g4f1blTnOn8naIkpGF/enn9OXP2Z8xxyKaO4Ae2vz+q2G39qjDs6K6N5hUKBm1VGaRf04k6syzQ=='
-
 def wait_for_nat(ec2,nat_gateway_id):
     attempts = 0
     max_attempts = 1000

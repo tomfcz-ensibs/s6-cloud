@@ -1,7 +1,1 @@
-{
-    "subnet_pub_id": "subnet-0fd77cd1997953b3d",
-    "subnet_priv_id": "subnet-03e3b5eaa621cdb65",
-    "security_group_pub_id": "sg-0aea595a3f1842a7d",
-    "security_group_priv_id": "sg-0c316c3bda06c2b42",
-    "vpc_id": "vpc-0d1cb0b5c69ecf6c4"
-}
+{"subnet_pub_id": "subnet-0b5f17801d381a5a2", "subnet_priv_id": "subnet-0ba7d45503322dddf", "security_group_pub_id": "sg-0b5ec9be1df520bf4", "security_group_priv_id": "sg-0a98044441d65bf43", "vpc_id": "vpc-0069c111b0732a8d7"}
