@@ -1,0 +1,10 @@
+[Unit]
+Description=Snort IDS/IPS
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/snort -c /etc/snort/snort.conf -i eth0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
