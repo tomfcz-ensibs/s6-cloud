@@ -162,7 +162,7 @@ with open(key_path, 'r', encoding='utf-8') as file: key_content = file.read()
 
 
 # Starting configuration of web server
-webserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/exo1/create_webser.sh'
+webserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/create_webser.sh'
 webserver_keycopy = ssh_command(hostname_webserver, key_path, [
     f'echo "{key_content}" > ~/labsuser.pem',
     'chmod 600 ~/labsuser.pem'
@@ -174,7 +174,7 @@ webserver_install = ssh_command(hostname_webserver, key_path, [
 
 
 # Starting configuration of database server
-dbserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/exo1/create_dbserver.sh'
+dbserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/create_dbserver.sh'
 ssh_command_via_tunnel(
     hostname_webserver, 22, 'ec2-user', key_path,
     hostname_dbserver, 22, 'ec2-user', key_path,
