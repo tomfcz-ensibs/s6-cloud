@@ -94,12 +94,12 @@ info = {
 }
 with open('instance_infos.json', 'w', encoding='utf-8') as file: file.write(json.dumps(info))
 
+
 traffic_mirror_target = ec2.create_traffic_mirror_target(
     NetworkInterfaceId=interface_mirserver
 )
 traffic_mirror_target_id = traffic_mirror_target['TrafficMirrorTarget']['TrafficMirrorTargetId']
 print(f'Create Traffic Mirror Target with ID {traffic_mirror_target_id}')
-
 
 traffic_mirror_filter = ec2.create_traffic_mirror_filter()
 traffic_mirror_filter_id = traffic_mirror_filter['TrafficMirrorFilter']['TrafficMirrorFilterId']
