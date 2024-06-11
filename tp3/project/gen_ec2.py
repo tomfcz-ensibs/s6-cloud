@@ -93,7 +93,6 @@ info = {
     'interface_mirserver': interface_mirserver
 }
 with open('instance_infos.json', 'w', encoding='utf-8') as file: file.write(json.dumps(info))
-print(info)
 
 traffic_mirror_target = ec2.create_traffic_mirror_target(
     NetworkInterfaceId=interface_mirserver
