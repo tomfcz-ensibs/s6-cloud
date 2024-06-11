@@ -9,10 +9,10 @@ SUBNET_PRI_ID = infos['subnet_priv_id']
 SECURITY_PUB_ID = infos['security_group_pub_id']
 SECURITY_PRI_ID = infos['security_group_priv_id']
 
-def create_ec2_instance(ec2, image_id, security_group_id, subnet_id, AssociatePublicIpAddress = False):
+def create_ec2_instance(ec2, image_id, instance_type, security_group_id, subnet_id, AssociatePublicIpAddress = False):
     response = ec2.run_instances(
         ImageId=image_id,
-        InstanceType='t2.micro',
+        InstanceType=instance_type,
         KeyName='vockey',
         MaxCount=1,
         MinCount=1,
@@ -57,13 +57,13 @@ def wait_for_instance_state(ec2, instance_id, desired_state='running', interval=
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
  
-serveurweb_instance = create_ec2_instance(ec2, 'ami-00beae93a2d981137', SECURITY_PUB_ID, SUBNET_PUB_ID, True)
+serveurweb_instance = create_ec2_instance(ec2, 'ami-00beae93a2d981137', 't3.medium', SECURITY_PUB_ID, SUBNET_PUB_ID, True)
 serveurweb_instance_id = serveurweb_instance['InstanceId']
 
-serveurbdd_instance = create_ec2_instance(ec2, 'ami-00beae93a2d981137', SECURITY_PRI_ID, SUBNET_PRI_ID, False)
+serveurbdd_instance = create_ec2_instance(ec2, 'ami-00beae93a2d981137', 't2.micro', SECURITY_PRI_ID, SUBNET_PRI_ID, False)
 serveurbdd_instance_id = serveurbdd_instance['InstanceId']
 
-serveurmir_instance = create_ec2_instance(ec2, 'ami-04b70fa74e45c3917', SECURITY_PRI_ID, SUBNET_PRI_ID, False)
+serveurmir_instance = create_ec2_instance(ec2, 'ami-04b70fa74e45c3917', 't2.micro', SECURITY_PRI_ID, SUBNET_PRI_ID, False)
 serveurmir_instance_id = serveurmir_instance['InstanceId']
 
 wait_for_instance_state(ec2, serveurweb_instance_id)
