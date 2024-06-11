@@ -82,14 +82,14 @@ with open(key_path, 'r', encoding='utf-8') as file: key_content = file.read()
 
 # Starting configuration of web server
 print('Starting configuration of web server')
-webserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/create_webser.sh'
+webserver_script_path = 'https://raw.githubusercontent.com/tomfcz-ensibs/s6-cloud/main/tp3/sample_files/create_webserver.sh'
 webserver_keycopy = ssh_command(hostname_webserver, key_path, [
     f'echo "{key_content}" > ~/labsuser.pem',
     'chmod 600 ~/labsuser.pem'
 ])
 webserver_install = ssh_command(hostname_webserver, key_path, [
     f'wget {webserver_script_path}',
-    f'bash create_webser.sh {hostname_dbserver}'
+    f'bash create_webserver.sh {hostname_dbserver}'
 ])
 print('Web server configuration completed')
 
