@@ -129,3 +129,7 @@ traffic_mirror_session = ec2.create_traffic_mirror_session(
 )
 traffic_mirror_session_id = traffic_mirror_session['TrafficMirrorSession']['TrafficMirrorSessionId']
 print(f'Create Traffic Mirror Session with ID {traffic_mirror_session_id}')
+
+print(f'Web server public IP : {hostname_webserver} / http://{hostname_webserver}')
+print(f'IDS server private IP : {hostname_mirserver}')
+print('###### EC2 instances (3) initialized ######')

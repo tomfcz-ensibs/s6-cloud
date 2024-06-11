@@ -137,3 +137,5 @@ info = {
     'vpc_id' : vpc_id
 }
 with open('vpc_infos.json', 'w', encoding='utf-8') as file: file.write(json.dumps(info))
+
+print(f'###### VPC {vpc_id} initialized ######')

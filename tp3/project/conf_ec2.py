@@ -118,3 +118,5 @@ ssh_command_via_tunnel(
     ]
 )
 print('Mirroring server configuration completed')
+
+print('###### EC2 instances configured, ready to use ######')
